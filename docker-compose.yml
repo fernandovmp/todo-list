@@ -1,0 +1,15 @@
+version: "3"
+services:
+    db:
+        build: ./database
+        environment:
+            SA_PASSWORD: "SQLSERVER_password9!"
+            ACCEPT_EULA: "Y"
+    webapi:
+        build: ./src/TodoList.WebApi
+        environment:
+            ConnectionStrings__SqlServerConnection: "Server=db;Database=TodoList;User=sa;Password=SQLSERVER_password9!;"
+        ports:
+            - "5000:80"
+        depends_on:
+            - db
