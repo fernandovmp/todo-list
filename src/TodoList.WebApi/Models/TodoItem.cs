@@ -1,6 +1,6 @@
 using System;
 
-namespace TodoList.WebApi
+namespace TodoList.WebApi.Models
 {
     public class TodoItem
     {

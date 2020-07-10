@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TodoList.WebApi.Models;
 
 namespace TodoList.WebApi.Repositories
 {

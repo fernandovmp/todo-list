@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TodoList.WebApi.Models;
 using TodoList.WebApi.Repositories;
 
 namespace TodoList.WebApi.Controllers
