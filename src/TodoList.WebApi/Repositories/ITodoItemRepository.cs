@@ -10,5 +10,6 @@ namespace TodoList.WebApi.Repositories
         Task Insert(TodoItem todoItem);
         Task Update(int id, TodoItem todoItem);
         Task Delete(int id);
+        Task<bool> Exists(int id);
     }
 }

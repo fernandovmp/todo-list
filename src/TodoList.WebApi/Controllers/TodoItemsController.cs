@@ -42,6 +42,9 @@ namespace TodoList.WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, TodoItem todoItem)
         {
+            bool exists = await _todoItemRepository.Exists(id);
+            if (!exists) return NotFound();
+
             await _todoItemRepository.Update(id, todoItem);
             return NoContent();
         }
@@ -49,6 +52,9 @@ namespace TodoList.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
+            bool exists = await _todoItemRepository.Exists(id);
+            if (!exists) return NotFound();
+
             await _todoItemRepository.Delete(id);
             return NoContent();
         }

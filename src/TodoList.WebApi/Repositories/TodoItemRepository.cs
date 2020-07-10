@@ -56,5 +56,11 @@ namespace TodoList.WebApi.Repositories
             });
         }
 
+        public async Task<bool> Exists(int id)
+        {
+            string query = @"select 1 from TodoItems where id = @Id;";
+            bool result = await _connection.ExecuteScalarAsync<bool>(query, new { id = id });
+            return result;
+        }
     }
 }
