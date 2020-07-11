@@ -40,6 +40,7 @@ namespace TodoList.WebApi
             services.Configure<JwtTokenOptions>(Configuration.GetSection("JwtToken"));
             services.Configure<HasherOptions>(Configuration.GetSection("PasswordHasher"));
             services.AddScoped<ITodoItemRepository, TodoItemRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPasswordHasherService, PasswordHasherService>();
             services.AddScoped<ITokenService, TokenService>();
 
