@@ -38,7 +38,9 @@ namespace TodoList.WebApi
                 new SqlConnection(Configuration.GetConnectionString("SqlServerConnection")));
 
             services.Configure<JwtTokenOptions>(Configuration.GetSection("JwtToken"));
+            services.Configure<HasherOptions>(Configuration.GetSection("PasswordHasher"));
             services.AddScoped<ITodoItemRepository, TodoItemRepository>();
+            services.AddScoped<IPasswordHasherService, PasswordHasherService>();
             services.AddScoped<ITokenService, TokenService>();
 
             var tokenOptions = new JwtTokenOptions();
