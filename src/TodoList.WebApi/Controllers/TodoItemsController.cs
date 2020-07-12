@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TodoList.WebApi.Models;
 using TodoList.WebApi.Repositories;
@@ -9,6 +10,7 @@ namespace TodoList.WebApi.Controllers
 {
     [ApiController]
     [Route("v1/{controller}")]
+    [Authorize]
     public class TodoItemsController : ControllerBase
     {
         private readonly ITodoItemRepository _todoItemRepository;
