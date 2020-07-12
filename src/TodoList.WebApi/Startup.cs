@@ -59,6 +59,8 @@ namespace TodoList.WebApi
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
+                    ValidAudience = tokenOptions.Audience,
+                    ValidIssuer = tokenOptions.Issuer,
                     ClockSkew = TimeSpan.Zero
                 };
             });

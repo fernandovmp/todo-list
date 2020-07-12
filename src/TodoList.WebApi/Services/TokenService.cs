@@ -39,7 +39,9 @@ namespace TodoList.WebApi.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
+                Audience = _tokenOptions.Audience,
                 Expires = expires,
+                Issuer = _tokenOptions.Issuer,
                 NotBefore = createdAt,
                 SigningCredentials = signingCredentials,
                 Subject = identity,
