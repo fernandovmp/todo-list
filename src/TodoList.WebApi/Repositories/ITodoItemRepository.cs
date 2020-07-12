@@ -6,7 +6,7 @@ namespace TodoList.WebApi.Repositories
 {
     public interface ITodoItemRepository
     {
-        Task<IEnumerable<TodoItem>> GetTodoItems();
+        Task<IEnumerable<TodoItem>> GetTodoItems(int userId);
         Task<TodoItem> GetTodoById(int id);
         Task Insert(TodoItem todoItem);
         Task Update(int id, TodoItem todoItem);

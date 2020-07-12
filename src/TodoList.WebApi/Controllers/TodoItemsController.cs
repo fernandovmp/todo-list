@@ -23,7 +23,8 @@ namespace TodoList.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            IEnumerable<TodoItem> todoItems = await _todoItemRepository.GetTodoItems();
+            int userId = int.Parse(User.Identity.Name);
+            IEnumerable<TodoItem> todoItems = await _todoItemRepository.GetTodoItems(userId);
             return Ok(todoItems);
         }
 
@@ -32,31 +33,43 @@ namespace TodoList.WebApi.Controllers
         {
             TodoItem todoItem = await _todoItemRepository.GetTodoById(id);
             if (todoItem is null) return NotFound();
+
+            int userId = int.Parse(User.Identity.Name);
+            if (todoItem.UserId != userId) return Forbid();
+
             return Ok(todoItem);
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(TodoItem todoItem)
         {
+            int userId = int.Parse(User.Identity.Name);
+            todoItem.UserId = userId;
             await _todoItemRepository.Insert(todoItem);
             return CreatedAtAction(nameof(Show), new { id = todoItem.Id }, todoItem);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, TodoItem todoItem)
+        public async Task<ActionResult> Update(int id, TodoItem model)
         {
-            bool exists = await _todoItemRepository.Exists(id);
-            if (!exists) return NotFound();
+            TodoItem todoItem = await _todoItemRepository.GetTodoById(id);
+            if (todoItem is null) return NotFound();
 
-            await _todoItemRepository.Update(id, todoItem);
+            int userId = int.Parse(User.Identity.Name);
+            if (todoItem.UserId != userId) return Forbid();
+
+            await _todoItemRepository.Update(id, model);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            bool exists = await _todoItemRepository.Exists(id);
-            if (!exists) return NotFound();
+            TodoItem todoItem = await _todoItemRepository.GetTodoById(id);
+            if (todoItem is null) return NotFound();
+
+            int userId = int.Parse(User.Identity.Name);
+            if (todoItem.UserId != userId) return Forbid();
 
             await _todoItemRepository.Delete(id);
             return NoContent();
