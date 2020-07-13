@@ -49,7 +49,7 @@ namespace TodoList.WebApi.Tests.Controllers
                 .Setup(repository => repository.Insert(It.IsAny<TodoItem>()))
                 .Returns(Task.CompletedTask);
 
-            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser(identityName: "1");
             int expectedUserId = 1;
 
             var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
@@ -76,7 +76,7 @@ namespace TodoList.WebApi.Tests.Controllers
                 .Setup(repository => repository.Insert(It.IsAny<TodoItem>()))
                 .Returns(Task.CompletedTask);
 
-            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser(identityName: "1");
 
             var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
             todoItemsController.ControllerContext = fakeControllerContext;
@@ -96,7 +96,7 @@ namespace TodoList.WebApi.Tests.Controllers
                 .Setup(repository => repository.GetTodoById(It.IsAny<int>()))
                 .Returns(Task.FromResult<TodoItem>(null));
 
-            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser(identityName: "1");
 
             var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
             todoItemsController.ControllerContext = fakeControllerContext;
@@ -117,7 +117,7 @@ namespace TodoList.WebApi.Tests.Controllers
                 .Setup(repository => repository.GetTodoById(It.IsAny<int>()))
                 .Returns(Task.FromResult(todoItemStoredInDatabase));
 
-            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser(identityName: "1");
 
             var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
             todoItemsController.ControllerContext = fakeControllerContext;
@@ -138,7 +138,7 @@ namespace TodoList.WebApi.Tests.Controllers
                 .Setup(repository => repository.GetTodoById(It.IsAny<int>()))
                 .Returns(Task.FromResult(todoItemStoredInDatabase));
 
-            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser(identityName: "1");
 
             var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
             todoItemsController.ControllerContext = fakeControllerContext;
@@ -157,7 +157,7 @@ namespace TodoList.WebApi.Tests.Controllers
                 .Setup(repository => repository.GetTodoById(It.IsAny<int>()))
                 .Returns(Task.FromResult<TodoItem>(null));
 
-            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser(identityName: "1");
 
             var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
             todoItemsController.ControllerContext = fakeControllerContext;
@@ -177,7 +177,7 @@ namespace TodoList.WebApi.Tests.Controllers
                 .Setup(repository => repository.GetTodoById(It.IsAny<int>()))
                 .Returns(Task.FromResult(todoItemStoredInDatabase));
 
-            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser(identityName: "1");
 
             var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
             todoItemsController.ControllerContext = fakeControllerContext;
@@ -197,7 +197,7 @@ namespace TodoList.WebApi.Tests.Controllers
                 .Setup(repository => repository.GetTodoById(It.IsAny<int>()))
                 .Returns(Task.FromResult(todoItemStoredInDatabase));
 
-            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser(identityName: "1");
 
             var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
             todoItemsController.ControllerContext = fakeControllerContext;
