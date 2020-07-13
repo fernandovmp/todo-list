@@ -21,7 +21,7 @@ namespace TodoList.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult<IEnumerable<TodoItem>>> Index()
         {
             int userId = int.Parse(User.Identity.Name);
             IEnumerable<TodoItem> todoItems = await _todoItemRepository.GetTodoItems(userId);
@@ -29,7 +29,7 @@ namespace TodoList.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> Show(int id)
+        public async Task<ActionResult<TodoItem>> Show(int id)
         {
             TodoItem todoItem = await _todoItemRepository.GetTodoById(id);
             if (todoItem is null) return NotFound();
@@ -41,7 +41,7 @@ namespace TodoList.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(TodoItem todoItem)
+        public async Task<ActionResult<TodoItem>> Create(TodoItem todoItem)
         {
             int userId = int.Parse(User.Identity.Name);
             todoItem.UserId = userId;
