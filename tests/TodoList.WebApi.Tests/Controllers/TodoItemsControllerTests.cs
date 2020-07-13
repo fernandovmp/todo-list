@@ -148,6 +148,65 @@ namespace TodoList.WebApi.Tests.Controllers
             result.Should().BeOfType<NoContentResult>();
         }
 
+        [Fact]
+        public async Task Delete_NonexistentId_ReturnsNotFound()
+        {
+            int id = 1;
+            var fakeTodoRepository = new Mock<ITodoItemRepository>();
+            fakeTodoRepository
+                .Setup(repository => repository.GetTodoById(It.IsAny<int>()))
+                .Returns(Task.FromResult<TodoItem>(null));
+
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+
+            var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
+            todoItemsController.ControllerContext = fakeControllerContext;
+
+            ActionResult result = await todoItemsController.Delete(id);
+
+            result.Should().BeOfType<NotFoundResult>();
+        }
+
+        [Fact]
+        public async Task Delete_OtherUserTodoItem_ReturnsForbid()
+        {
+            int id = 1;
+            var todoItemStoredInDatabase = GetValidTodoItemWithUserId(userId: 2);
+            var fakeTodoRepository = new Mock<ITodoItemRepository>();
+            fakeTodoRepository
+                .Setup(repository => repository.GetTodoById(It.IsAny<int>()))
+                .Returns(Task.FromResult(todoItemStoredInDatabase));
+
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+
+            var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
+            todoItemsController.ControllerContext = fakeControllerContext;
+
+            ActionResult result = await todoItemsController.Delete(id);
+
+            result.Should().BeOfType<ForbidResult>();
+        }
+
+        [Fact]
+        public async Task Delete_ExistingTodoItem_ReturnsNoContent()
+        {
+            int id = 1;
+            var todoItemStoredInDatabase = GetValidTodoItemWithUserId(userId: 1);
+            var fakeTodoRepository = new Mock<ITodoItemRepository>();
+            fakeTodoRepository
+                .Setup(repository => repository.GetTodoById(It.IsAny<int>()))
+                .Returns(Task.FromResult(todoItemStoredInDatabase));
+
+            ControllerContext fakeControllerContext = GetFakeControlerContextWithFakeUser("1");
+
+            var todoItemsController = new TodoItemsController(fakeTodoRepository.Object);
+            todoItemsController.ControllerContext = fakeControllerContext;
+
+            ActionResult result = await todoItemsController.Delete(id);
+
+            result.Should().BeOfType<NoContentResult>();
+        }
+
         private TodoItem GetValidTodoItemWithUserId(int userId)
         {
             return new TodoItem
