@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3EA7EF5E-4D4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.WebApi", "src\TodoList.WebApi\TodoList.WebApi.csproj", "{C7566BDE-F568-422A-AE13-E618E6B629F0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F4524A02-4B2E-416C-A965-57DA4A102F58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.WebApi.Tests", "tests\TodoList.WebApi.Tests\TodoList.WebApi.Tests.csproj", "{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +36,21 @@ Global
 		{C7566BDE-F568-422A-AE13-E618E6B629F0}.Release|x64.Build.0 = Release|Any CPU
 		{C7566BDE-F568-422A-AE13-E618E6B629F0}.Release|x86.ActiveCfg = Release|Any CPU
 		{C7566BDE-F568-422A-AE13-E618E6B629F0}.Release|x86.Build.0 = Release|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Debug|x64.Build.0 = Debug|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Debug|x86.Build.0 = Debug|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Release|x64.ActiveCfg = Release|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Release|x64.Build.0 = Release|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Release|x86.ActiveCfg = Release|Any CPU
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C7566BDE-F568-422A-AE13-E618E6B629F0} = {3EA7EF5E-4D4A-409B-ADBE-5E3F69339586}
+		{6A4E431F-E4F0-4536-ABC2-4B063204AAA0} = {F4524A02-4B2E-416C-A965-57DA4A102F58}
 	EndGlobalSection
 EndGlobal
