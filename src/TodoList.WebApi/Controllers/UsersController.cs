@@ -45,13 +45,15 @@ namespace TodoList.WebApi.Controllers
         public async Task<ActionResult<UserViewModel>> Create(CreateUserViewModel model)
         {
             if (model.Password != model.ConfirmPassword) return BadRequest();
-            string hashPassword = _passwordHasher.Hash(model.Password);
+            
+            bool userAlreadyExists = await _userRepository.Exists(model.Username);
+            if (userAlreadyExists) return Conflict();
 
+            string hashPassword = _passwordHasher.Hash(model.Password);
             var user = new User
             {
                 Username = model.Username
             };
-
             await _userRepository.Insert(user, hashPassword);
 
             var userViewModel = new UserViewModel
