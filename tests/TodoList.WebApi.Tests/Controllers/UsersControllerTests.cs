@@ -127,5 +127,131 @@ namespace TodoList.WebApi.Tests.Controllers
                 .Should()
                 .Be(expectedId);
         }
+
+        [Fact]
+        public async Task Authenticate_NonexistentUser_ReturnsNotFound()
+        {
+            var model = new LoginViewModel
+            {
+                Username = "default",
+                Password = "password"
+            };
+
+            var fakeUserRepository = new Mock<IUserRepository>();
+            fakeUserRepository
+                .Setup(repository => repository.GetUserByUsername(It.IsAny<string>()))
+                .Returns(Task.FromResult<User>(null));
+            var fakePasswordHasher = new Mock<IPasswordHasherService>();
+            var fakeTokenService = new Mock<ITokenService>();
+            var usersController = new UsersController(
+                fakeUserRepository.Object,
+                fakePasswordHasher.Object,
+                fakeTokenService.Object);
+
+            ActionResult<LoginResponseViewModel> result = await usersController.Authenticate(model);
+
+            result.Result.Should().BeOfType<NotFoundResult>();
+        }
+
+        [Fact]
+        public async Task Authenticate_WrongPassword_ReturnsBadRequest()
+        {
+            var model = new LoginViewModel
+            {
+                Username = "default",
+                Password = "password"
+            };
+            var userStoredInDatabase = new User
+            {
+                Username = "default",
+                Password = "diferentPassword"
+            };
+            var fakeUserRepository = new Mock<IUserRepository>();
+            fakeUserRepository
+                .Setup(repository => repository.GetUserWithPasswordByUsername(It.IsAny<string>()))
+                .ReturnsAsync(userStoredInDatabase);
+            var fakePasswordHasher = new Mock<IPasswordHasherService>();
+            fakePasswordHasher
+                .Setup(passwordHasher => passwordHasher.VerifyPassword(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(false);
+            var fakeTokenService = new Mock<ITokenService>();
+            var usersController = new UsersController(
+                fakeUserRepository.Object,
+                fakePasswordHasher.Object,
+                fakeTokenService.Object);
+
+            ActionResult<LoginResponseViewModel> result = await usersController.Authenticate(model);
+
+            result.Result.Should().BeOfType<BadRequestResult>();
+        }
+
+        [Fact]
+        public async Task Authenticate_ValidCredentials_ReturnsOk()
+        {
+            var model = new LoginViewModel
+            {
+                Username = "default",
+                Password = "password"
+            };
+            var userStoredInDatabase = new User
+            {
+                Username = "default",
+                Password = "password"
+            };
+            var fakeUserRepository = new Mock<IUserRepository>();
+            fakeUserRepository
+                .Setup(repository => repository.GetUserWithPasswordByUsername(It.IsAny<string>()))
+                .ReturnsAsync(userStoredInDatabase);
+            var fakePasswordHasher = new Mock<IPasswordHasherService>();
+            fakePasswordHasher
+                .Setup(passwordHasher => passwordHasher.VerifyPassword(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(true);
+            var fakeTokenService = new Mock<ITokenService>();
+            var usersController = new UsersController(
+                fakeUserRepository.Object,
+                fakePasswordHasher.Object,
+                fakeTokenService.Object);
+
+            ActionResult<LoginResponseViewModel> result = await usersController.Authenticate(model);
+
+            result.Result.Should().BeOfType<OkObjectResult>();
+        }
+
+        [Fact]
+        public async Task Authenticate_ValidCredentials_ReturnsLoginResponseViewModel()
+        {
+            var model = new LoginViewModel
+            {
+                Username = "default",
+                Password = "password"
+            };
+            var userStoredInDatabase = new User
+            {
+                Username = "default",
+                Password = "password"
+            };
+            var fakeUserRepository = new Mock<IUserRepository>();
+            fakeUserRepository
+                .Setup(repository => repository.GetUserWithPasswordByUsername(It.IsAny<string>()))
+                .ReturnsAsync(userStoredInDatabase);
+            var fakePasswordHasher = new Mock<IPasswordHasherService>();
+            fakePasswordHasher
+                .Setup(passwordHasher => passwordHasher.VerifyPassword(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(true);
+            var fakeTokenService = new Mock<ITokenService>();
+            var usersController = new UsersController(
+                fakeUserRepository.Object,
+                fakePasswordHasher.Object,
+                fakeTokenService.Object);
+
+            ActionResult<LoginResponseViewModel> result = await usersController.Authenticate(model);
+
+            result
+                .Result
+                .As<OkObjectResult>()
+                .Value
+                .Should()
+                .BeOfType<LoginResponseViewModel>();
+        }
     }
 }
