@@ -14,10 +14,10 @@ namespace TodoList.WebApi.Repositories
         {
             _connection = connection;
         }
-        public async Task<bool> Exists(int id)
+        public async Task<bool> Exists(string username)
         {
-            string query = @"select 1 from Users where id = @Id;";
-            bool result = await _connection.ExecuteScalarAsync<bool>(query, new { id = id });
+            string query = @"select 1 from Users where username = @Username;";
+            bool result = await _connection.ExecuteScalarAsync<bool>(query, new { Username = username });
             return result;
         }
 
