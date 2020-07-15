@@ -27,7 +27,7 @@ namespace TodoList.WebApi.Controllers
         }
 
         [HttpGet("{username}")]
-        public async Task<ActionResult> Show(string username)
+        public async Task<ActionResult<UserViewModel>> Show(string username)
         {
             User user = await _userRepository.GetUserByUsername(username);
             if (user is null) return NotFound();
@@ -42,7 +42,7 @@ namespace TodoList.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(CreateUserViewModel model)
+        public async Task<ActionResult<UserViewModel>> Create(CreateUserViewModel model)
         {
             if (model.Password != model.ConfirmPassword) return BadRequest();
             string hashPassword = _passwordHasher.Hash(model.Password);
@@ -65,7 +65,7 @@ namespace TodoList.WebApi.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<ActionResult> Authenticate(LoginViewModel model)
+        public async Task<ActionResult<LoginResponseViewModel>> Authenticate(LoginViewModel model)
         {
             User user = await _userRepository.GetUserWithPasswordByUsername(model.Username);
 
