@@ -1,16 +1,28 @@
 using System;
+using System.Data;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using TodoList.WebApi.Configurations;
+using TodoList.WebApi.Repositories;
 using TodoList.WebApi.Services;
 
 namespace TodoList.WebApi.Extentsions
 {
     public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddSqlServerDatabase(this IServiceCollection services, string connectionString) =>
+            services
+                .AddTransient<IDbConnection>(sp => new SqlConnection(connectionString));
+
+        public static IServiceCollection AddRepositories(this IServiceCollection services) =>
+            services
+                .AddScoped<ITodoItemRepository, TodoItemRepository>()
+                .AddScoped<IUserRepository, UserRepository>();
+
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var tokenOptions = new JwtTokenOptions();
