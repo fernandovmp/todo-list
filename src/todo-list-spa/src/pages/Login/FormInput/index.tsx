@@ -7,14 +7,24 @@ interface IFormInputProps {
     id: string;
     label: string;
     type: 'text' | 'password';
+    onValueChange(value: string): void;
 }
 
-export const FormInput: React.FC<IFormInputProps> = ({ id, label, type }) => {
+export const FormInput: React.FC<IFormInputProps> = ({
+    id,
+    label,
+    type,
+    onValueChange,
+}) => {
     const [actualType, setActualType] = useState(type);
     return (
         <label className="form-input" htmlFor={id}>
             {label}
-            <input id={id} type={actualType} />
+            <input
+                id={id}
+                type={actualType}
+                onChange={(e) => onValueChange(e.target.value)}
+            />
             {type === 'password' && (
                 <div className="password-visibility-container">
                     <img

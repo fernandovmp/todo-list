@@ -5,6 +5,9 @@ import './styles.css';
 
 export const Login: React.FC = () => {
     const [isLogin, setIsLogin] = useState(true);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -17,13 +20,24 @@ export const Login: React.FC = () => {
                     <img src={logo} alt="logo" /> <strong>Todo List</strong>
                 </header>
                 <form className="login-form" onSubmit={handleSubmit}>
-                    <FormInput id="username" label="Username" type="text" />
-                    <FormInput id="password" label="Password" type="password" />
+                    <FormInput
+                        id="username"
+                        label="Username"
+                        type="text"
+                        onValueChange={setUsername}
+                    />
+                    <FormInput
+                        id="password"
+                        label="Password"
+                        type="password"
+                        onValueChange={setPassword}
+                    />
                     {!isLogin && (
                         <FormInput
                             id="confirmPassword"
                             label="Confirm password"
                             type="password"
+                            onValueChange={setConfirmPassword}
                         />
                     )}
                     <button className="submit-button" type="submit">
