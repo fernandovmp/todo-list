@@ -19,7 +19,7 @@ namespace TodoList.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSqlServerDatabase(Configuration.GetConnectionString("SqlConnection"));
+            services.AddSqlServerDatabase(Configuration.GetConnectionString("SqlServerConnection"));
             services.AddRepositories();
             services.AddJwtAuthentication(Configuration);
         }
