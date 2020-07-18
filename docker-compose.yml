@@ -9,6 +9,8 @@ services:
         build: ./src/TodoList.WebApi
         environment:
             ConnectionStrings__SqlServerConnection: "Server=db;Database=TodoList;User=sa;Password=SQLSERVER_password9!;"
+            CorsOptions__PolicyName: "TodoApiPolicy"
+            CorsOptions__AllowedOrigin: "http://localhost:3000"
             JwtToken__Audience: "TodoClient"
             JwtToken__Issuer: "TodoApi"
             JwtToken__Key: "VjFod1MxWXlSblJVYmxKWFlXcz0"

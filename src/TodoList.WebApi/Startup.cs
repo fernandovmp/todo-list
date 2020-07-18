@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using TodoList.WebApi.Configurations;
 using TodoList.WebApi.Extentsions;
 
 namespace TodoList.WebApi
@@ -18,6 +20,7 @@ namespace TodoList.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationCorsPolicy(Configuration);
             services.AddControllers();
             services.AddSqlServerDatabase(Configuration.GetConnectionString("SqlServerConnection"));
             services.AddRepositories();
@@ -31,9 +34,13 @@ namespace TodoList.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            IOptions<ApplicationCorsOptions> corsOptions =
+                app.ApplicationServices.GetService<IOptions<ApplicationCorsOptions>>();
+            app.UseCors(corsOptions.Value.PolicyName);
 
             app.UseAuthentication();
             app.UseAuthorization();
