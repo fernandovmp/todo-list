@@ -19,3 +19,10 @@ services:
             - "5000:80"
         depends_on:
             - db
+    webapp:
+        build:
+            context: ./src/todo-list-spa
+            args:
+                - api_url=http://localhost:5000
+        ports:
+            - "3000:80"
