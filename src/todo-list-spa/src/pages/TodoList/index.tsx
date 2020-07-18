@@ -3,12 +3,7 @@ import logo from '../../assets/done_outline-black.svg';
 import close from '../../assets/close.svg';
 import add from '../../assets/add-black-36dp.svg';
 import './styles.css';
-
-interface TodoItem {
-    id: number;
-    title: string;
-    completed: boolean;
-}
+import { TodoItem } from '../../models';
 
 interface ITodoItemComponentProps {
     todoItem: TodoItem;
