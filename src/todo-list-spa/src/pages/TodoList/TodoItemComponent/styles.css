@@ -1,0 +1,45 @@
+.todo-item-container {
+    display: flex;
+    align-items: center;
+    height: 36px;
+}
+
+.todo-item-container > .completed-checkbox {
+    appearance: none;
+    padding: 0;
+    margin-left: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: solid 1px #ccc;
+    background-color: white;
+}
+
+.completed-checkbox:focus {
+    outline: none;
+}
+
+.completed-checkbox:checked::after {
+    content: "\2714";
+    font-size: medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo-item-container > .todo-item-title {
+    margin-left: 8px;
+    flex: 1;
+}
+
+.todo-item-container > .delete-button {
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+    background-color: rgba(100, 100, 100, 0.2);
+}
